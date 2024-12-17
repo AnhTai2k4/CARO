@@ -1,2 +1,2 @@
 //chao cac con vo
-//cac em lam cai lon gi vay
+//cac em lam con cac gi vay
