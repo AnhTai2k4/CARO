@@ -28,7 +28,8 @@ public class HumanMode extends JFrame implements ActionListener {
             }
         }
         
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         frame.setSize(800, 800);
         frame.setLayout(new BorderLayout());
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,15,20));
@@ -54,8 +55,8 @@ public class HumanMode extends JFrame implements ActionListener {
         //Tao luoi bang gridlayout
         JPanel  pn2 = new JPanel();
         pn2.setLayout(new GridLayout(col,row));
-        for(int i=0;i<col;i++){
-            for(int j=0;j<row;j++){
+        for(int i=1;i<=col;i++){
+            for(int j=1;j<=row;j++){
                 b[i][j]= new JButton(" ");
                 b[i][j].setActionCommand(i+ " "+ j);
                 b[i][j].addActionListener(this);
@@ -72,12 +73,12 @@ public class HumanMode extends JFrame implements ActionListener {
         int cnt=0,cnt1=0,cnt2=0;
         //5 hang ngang
         String s= b[i][j].getText();
-        while(b[i][j].getText()==s){
+        while(i<=col&&b[i][j].getText()==s){
             cnt1++;
             i=i+1;
         }
         i=i-cnt1;
-        while(b[i-1][j].getText()==s){
+        while(i>=2&&b[i-1][j].getText()==s){
             cnt2++;
             i--;
         }
@@ -90,12 +91,12 @@ public class HumanMode extends JFrame implements ActionListener {
 
         //5 hang doc
         cnt=cnt1=cnt2=0;
-        while(b[i][j].getText()==s){
+        while(j<=row&&b[i][j].getText()==s){
             cnt1++;
             j=j+1;
         }
         j=j-cnt1;
-        while(b[i][j-1].getText()==s){
+        while(j>=2&&b[i][j-1].getText()==s){
             cnt2++;
             j--;
         }
@@ -110,14 +111,14 @@ public class HumanMode extends JFrame implements ActionListener {
 
         cnt=cnt1=cnt2=0;
         //5 duong cheo xuong
-        while(b[i][j].getText()==s){
+        while(j<=row&&i<=col&&b[i][j].getText()==s){
             cnt1++;
-            i=i+1;
+            i++;
             j++;
         }
         i=i-cnt1;
         j-=cnt1;
-        while(b[i-1][j-1].getText()==s){
+        while(i>=2&&j>=2&&b[i-1][j-1].getText()==s){
             cnt2++;
             i--;
             j--;
@@ -132,14 +133,14 @@ public class HumanMode extends JFrame implements ActionListener {
 
         //5 duong cheo len
         cnt=cnt1=cnt2=0;
-        while(b[i][j].getText()==s){
+        while(i>=1&&j<=row&&b[i][j].getText()==s){
             cnt1++;
             i--;
             j++;
         }
         i+=cnt1;
         j-=cnt1;
-        while(b[i+1][j-1].getText()==s){
+        while(i<col&&j>=2&&b[i+1][j-1].getText()==s){
             cnt2++;
             i++;
             j--;
@@ -174,7 +175,7 @@ public class HumanMode extends JFrame implements ActionListener {
                     "Kết quả", 
                     JOptionPane.INFORMATION_MESSAGE
                     ); // Hiển thị hộp thoại thông báo
-                    new HumanMode();
+                    
                     this.dispose();
                 }
 
@@ -193,7 +194,7 @@ public class HumanMode extends JFrame implements ActionListener {
                     "Kết quả", 
                     JOptionPane.INFORMATION_MESSAGE
                     ); // Hiển thị hộp thoại thông báo
-                    new HumanMode();
+                    
                     this.dispose();
                 }
 
@@ -207,8 +208,9 @@ public class HumanMode extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         String s = e.getActionCommand();
         if(s=="New Game"){
-            new HumanMode();
             this.dispose();
+            new HumanMode();
+            
             
         }
 
@@ -222,7 +224,7 @@ public class HumanMode extends JFrame implements ActionListener {
             
         }
         if(s=="Exit"){
-            System.exit(0);
+            new Main();
         }
         int k= s.indexOf(" ");
         int i= Integer.parseInt(s.substring(0,k));

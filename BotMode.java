@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.lang.Math;
 
 
 public class BotMode extends JFrame implements ActionListener {
@@ -111,6 +112,7 @@ public class BotMode extends JFrame implements ActionListener {
         }
         Random random = new Random();
         return a.get(random.nextInt(a.size()));
+        
     }
     
 
@@ -127,6 +129,7 @@ public class BotMode extends JFrame implements ActionListener {
             }
         }
         return list;
+        
     }
     
     
@@ -147,6 +150,7 @@ public class BotMode extends JFrame implements ActionListener {
         }
     }
     return false; // Không có hàng xóm nào đã đánh
+    
     }
 
     //Nuoc co bot co the thang
@@ -197,98 +201,96 @@ public class BotMode extends JFrame implements ActionListener {
                 }
             }
         }
-        return null;
+         return null;
     }
 
-    public boolean checkwin(int i, int j) {
-        // Kiểm tra chỉ số ngoài phạm vi hoặc phần tử null
-        if (i < 1 || i > col || j < 1 || j > row || b[i][j] == null || b[i][j].getText().equals(" ")) {
-            return false; // Không có gì để kiểm tra
-        }
-    
-        // Lấy giá trị của ô hiện tại (X hoặc O)
-        String s = b[i][j].getText();
-        int cnt_, cnt1, cnt2;
-    
-        // Kiểm tra 5 ô liên tiếp theo hàng ngang
-        cnt_ = cnt1 = cnt2 = 0;
-        int x = i, y = j;
-        while (x <= col && b[x][y] != null && b[x][y].getText().equals(s)) {
+    public boolean checkwin(int i,int j){
+        int cnt=0,cnt1=0,cnt2=0;
+        //5 hang ngang
+        String s= b[i][j].getText();
+        while(i<=col&&b[i][j].getText()==s){
             cnt1++;
-            x++;
+            i=i+1;
         }
-        x = i; // Reset về vị trí ban đầu
-        while (x > 1 && b[x - 1][y] != null && b[x - 1][y].getText().equals(s)) {
+        i=i-cnt1;
+        while(i>=2&&b[i-1][j].getText()==s){
             cnt2++;
-            x--;
+            i--;
         }
-        cnt_ = cnt1 + cnt2 - 1; // Trừ đi 1 để tránh đếm trùng
-        if (cnt_ >= 5) {
-            win = true;
-            return true;
-        }
-    
-        // Kiểm tra 5 ô liên tiếp theo hàng dọc
-        cnt_ = cnt1 = cnt2 = 0;
-        x = i; y = j;
-        while (y <= row && b[x][y] != null && b[x][y].getText().equals(s)) {
+        i=i+cnt2;
+        cnt=cnt1+cnt2;
+
+        if(cnt>=5) {
+            win=true;
+            return true;}
+
+        //5 hang doc
+        cnt=cnt1=cnt2=0;
+        while(j<=row&&b[i][j].getText()==s){
             cnt1++;
-            y++;
+            j=j+1;
         }
-        y = j; // Reset về vị trí ban đầu
-        while (y > 1 && b[x][y - 1] != null && b[x][y - 1].getText().equals(s)) {
+        j=j-cnt1;
+        while(j>=2&&b[i][j-1].getText()==s){
             cnt2++;
-            y--;
+            j--;
         }
-        cnt_ = cnt1 + cnt2 - 1;
-        if (cnt_ >= 5) {
-            win = true;
-            return true;
-        }
-    
-        // Kiểm tra 5 ô liên tiếp theo đường chéo xuống (\)
-        cnt_ = cnt1 = cnt2 = 0;
-        x = i; y = j;
-        while (x <= col && y <= row && b[x][y] != null && b[x][y].getText().equals(s)) {
+        j=j+cnt2;
+        cnt=cnt1+cnt2;
+
+        if(cnt>=5) {
+            win=true;
+            return true;}
+
+        //5 duong cheo
+
+        cnt=cnt1=cnt2=0;
+        //5 duong cheo xuong
+        while(j<=row&&i<=col&&b[i][j].getText()==s){
             cnt1++;
-            x++;
-            y++;
+            i++;
+            j++;
         }
-        x = i; y = j; // Reset về vị trí ban đầu
-        while (x > 1 && y > 1 && b[x - 1][y - 1] != null && b[x - 1][y - 1].getText().equals(s)) {
+        i=i-cnt1;
+        j-=cnt1;
+        while(i>=2&&j>=2&&b[i-1][j-1].getText()==s){
             cnt2++;
-            x--;
-            y--;
+            i--;
+            j--;
         }
-        cnt_ = cnt1 + cnt2 - 1;
-        if (cnt_ >= 5) {
-            win = true;
-            return true;
-        }
-    
-        // Kiểm tra 5 ô liên tiếp theo đường chéo lên (/)
-        cnt_ = cnt1 = cnt2 = 0;
-        x = i; y = j;
-        while (x > 1 && y <= row && b[x][y] != null && b[x][y].getText().equals(s)) {
+        i=i+cnt2;
+        j+=cnt2;
+        cnt=cnt1+cnt2;
+
+        if(cnt>=5) {
+            win=true;
+            return true;}
+
+        //5 duong cheo len
+        cnt=cnt1=cnt2=0;
+        while(i>=1&&j<=row&&b[i][j].getText()==s){
             cnt1++;
-            x--;
-            y++;
+            i--;
+            j++;
         }
-        x = i; y = j; // Reset về vị trí ban đầu
-        while (x <= col && y > 1 && b[x + 1][y - 1] != null && b[x + 1][y - 1].getText().equals(s)) {
+        i+=cnt1;
+        j-=cnt1;
+        while(i<col&&j>=2&&b[i+1][j-1].getText()==s){
             cnt2++;
-            x++;
-            y--;
+            i++;
+            j--;
         }
-        cnt_ = cnt1 + cnt2 - 1;
-        if (cnt_ >= 5) {
-            win = true;
-            return true;
-        }
-    
-        // Không có điều kiện chiến thắng nào thỏa mãn
-        return false;
+        i=i-cnt2;
+        j+=cnt2;
+        cnt=cnt1+cnt2;
+
+        if(cnt>=5) {
+            win=true;
+            return true;}
+        else return false;
+
     }
+
     
 
 
@@ -297,6 +299,7 @@ public class BotMode extends JFrame implements ActionListener {
         if(visited[i][j]==false&&cnt<=size){
             if(cnt%2==1){
                 b[i][j].setText("X");
+                System.out.print("X da danh "+i+" "+j);
                 lb.setText("Lượt của O");
                 
                 
@@ -311,12 +314,13 @@ public class BotMode extends JFrame implements ActionListener {
                     "Kết quả", 
                     JOptionPane.INFORMATION_MESSAGE
                     ); // Hiển thị hộp thoại thông báo
-                    new HumanMode();
+                    new BotMode();
                     this.dispose();
                 }
             }
             else{
                 b[i][j].setText("O");
+                System.out.print("O da danh "+i+" "+j);
                 lb.setText("Lượt của X");
                 
                 b[i][j].setFont(new Font("Arial", Font.BOLD, 18));
@@ -330,7 +334,7 @@ public class BotMode extends JFrame implements ActionListener {
                     "Kết quả", 
                     JOptionPane.INFORMATION_MESSAGE
                     ); // Hiển thị hộp thoại thông báo
-                    new HumanMode();
+                    new BotMode();
                     this.dispose();
                 }
 
@@ -344,22 +348,25 @@ public class BotMode extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         String s = e.getActionCommand();
         if(s=="New Game"){
-            new HumanMode();
+            new BotMode();
             this.dispose();
             
         }
 
         else if(s=="Undo"){
             b[x_undo[cnt-1]][y_undo[cnt-1]].setText(" ");
+            b[x_undo[cnt-2]][y_undo[cnt-2]].setText(" ");
             b[x_undo[cnt-1]][y_undo[cnt-1]].setActionCommand(x_undo[cnt-1]+" "+y_undo[cnt-1]);
+            b[x_undo[cnt-2]][y_undo[cnt-2]].setActionCommand(x_undo[cnt-2]+" "+y_undo[cnt-2]);
             visited[x_undo[cnt-1]][y_undo[cnt-1]]=false;
-            cnt--;
-            if(cnt%2==0) lb.setText("Lượt của O");
-            else lb.setText("Lượt của X");
+            visited[x_undo[cnt-2]][y_undo[cnt-2]]=false;
+            cnt-=2;
+            
+            lb.setText("Lượt của X");
             
         }
         else if(s=="Exit"){
-            System.exit(0);
+            new Main();
         }
         else {
             if (cnt % 2 == 1) { // Lượt người chơi

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Caro extends JFrame implements ActionListener {
+public class Main extends JFrame implements ActionListener {
     JFrame frame = new JFrame("AnhTai-Caro");
     JPanel panel = new JPanel() {
         @Override
@@ -20,7 +20,7 @@ public class Caro extends JFrame implements ActionListener {
     JButton b2 = new JButton();
     Image backgroundImage;
 
-    public Caro() {
+    public Main() {
         frame.setLayout(new BorderLayout());
         b1.setText("Chơi với người");
         b1.setFont(new Font("Arial", Font.BOLD, 25));
@@ -78,6 +78,6 @@ public class Caro extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Caro();
+        new Main();
     }
 }

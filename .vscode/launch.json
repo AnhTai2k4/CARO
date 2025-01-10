@@ -2,6 +2,41 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "BotMode",
+      "request": "launch",
+      "mainClass": "BotMode",
+      "projectName": "CARO_1ab369c1"
+    },
+    {
+      "type": "java",
+      "name": "HumanMode",
+      "request": "launch",
+      "mainClass": "HumanMode",
+      "projectName": "CARO_1ab369c1"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "CARO_1ab369c1"
+    },
+    {
+      "type": "java",
+      "name": "Server",
+      "request": "launch",
+      "mainClass": "Server",
+      "projectName": "CARO_1ab369c1"
+    },
+    {
+      "type": "java",
+      "name": "Twohuman",
+      "request": "launch",
+      "mainClass": "Twohuman",
+      "projectName": "CARO_1ab369c1"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",

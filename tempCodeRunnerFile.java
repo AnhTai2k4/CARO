@@ -1,83 +1,86 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
-public class tempCodeRunnerFile extends JFrame implements ActionListener {
-    JFrame frame = new JFrame("AnhTai-Caro");
-    JPanel panel = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            // Vẽ ảnh nền lên JPanel
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+ public boolean checkwin(int i,int j){
+        int cnt=0,cnt1=0,cnt2=0;
+        //5 hang ngang
+        String s= b[i][j].getText();
+        while(i<=col&&b[i][j].getText()==s){
+            cnt1++;
+            i=i+1;
         }
-    };
-    JLabel label = new JLabel("Mời chọn chế độ");
-    
-    JButton b1 = new JButton();
-    JButton b2 = new JButton();
-    Image backgroundImage;
-
-    public tempCodeRunnerFile() {
-        frame.setLayout(new BorderLayout());
-        b1.setText("Chơi với người");
-        b1.setFont(new Font("Arial", Font.BOLD, 25));
-        b2.setText("Chơi với máy");
-        b2.setFont(new Font("Arial", Font.BOLD, 25));
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-        
-        label.setForeground(Color.WHITE);
-        // Đảm bảo đường dẫn ảnh đúng
-        backgroundImage = new ImageIcon("cach-choi-co-caro-7.jpg").getImage();
-
-        // Đặt kích thước cho các nút
-        b1.setPreferredSize(new Dimension(300, 40));
-        b2.setPreferredSize(new Dimension(300, 40));
-        b1.setMaximumSize(new Dimension(300, 60));
-        b2.setMaximumSize(new Dimension(300, 60));
-
-        frame.setSize(800, 800);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Set BoxLayout và căn chỉnh các thành phần
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.BOLD, 60));
-        b1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b2.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Thêm khoảng cách giữa các thành phần
-        panel.add(Box.createVerticalGlue());
-        panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(0, 20)));
-        panel.add(b1);
-        panel.add(Box.createRigidArea(new Dimension(0, 20)));
-        panel.add(b2);
-        panel.add(Box.createVerticalGlue());
-
-        // Thêm panel vào frame
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String s=e.getActionCommand();
-        if(s=="Chơi với người") {
-            new HumanMode();
+        i=i-cnt1;
+        while(i>=2&&b[i-1][j].getText()==s){
+            cnt2++;
+            i--;
         }
+        i=i+cnt2;
+        cnt=cnt1+cnt2;
 
-        if(s=="Chơi với máy"){
-            new BotMode();
+        if(cnt>=5) {
+            win=true;
+            return true;}
 
+        //5 hang doc
+        cnt=cnt1=cnt2=0;
+        while(j<=row&&b[i][j].getText()==s){
+            cnt1++;
+            j=j+1;
         }
-    }
+        j=j-cnt1;
+        while(j>=2&&b[i][j-1].getText()==s){
+            cnt2++;
+            j--;
+        }
+        j=j+cnt2;
+        cnt=cnt1+cnt2;
 
-    public static void main(String[] args) {
-        new tempCodeRunnerFile();
+        if(cnt>=5) {
+            win=true;
+            return true;}
+
+        //5 duong cheo
+
+        cnt=cnt1=cnt2=0;
+        //5 duong cheo xuong
+        while(j<=row&&i<=col&&b[i][j].getText()==s){
+            cnt1++;
+            i++;
+            j++;
+        }
+        i=i-cnt1;
+        j-=cnt1;
+        while(i>=2&&j>=2&&b[i-1][j-1].getText()==s){
+            cnt2++;
+            i--;
+            j--;
+        }
+        i=i+cnt2;
+        j+=cnt2;
+        cnt=cnt1+cnt2;
+
+        if(cnt>=5) {
+            win=true;
+            return true;}
+
+        //5 duong cheo len
+        cnt=cnt1=cnt2=0;
+        while(i>=1&&j<=row&&b[i][j].getText()==s){
+            cnt1++;
+            i--;
+            j++;
+        }
+        i+=cnt1;
+        j-=cnt1;
+        while(i<col&&j>=2&&b[i+1][j-1].getText()==s){
+            cnt2++;
+            i++;
+            j--;
+        }
+        i=i-cnt2;
+        j+=cnt2;
+        cnt=cnt1+cnt2;
+
+        if(cnt>=5) {
+            win=true;
+            return true;}
+        else return false;
+
     }
-}
